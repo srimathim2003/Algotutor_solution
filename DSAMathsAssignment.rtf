@@ -1,0 +1,708 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset0 Times New Roman;}{\f3\fnil\fcharset161{\*\fname Times New Roman;}Times New Roman Greek;}}
+{\*\generator Riched20 10.0.10240}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\qc\b\fs40\lang9\par
+DSAMathsAssignment\par
+\b0\f1\fs22\par
+
+\pard\sa200\sl276\slmult1\b\f2\fs32 Q 1. Count of divisors\b0\f1\par
+\f2\fs28 #include <stdio.h>\par
+int countDivisors(int num) \{\par
+    int count = 0;\par
+    for (int i = 1; i <= num; i++) \{\par
+        if (num % i == 0) \{\par
+            count++;\par
+        \}\par
+    \}\par
+    return count;\par
+\}\par
+\par
+void findDivisors(int A[], int n, int result[]) \{\par
+    for (int i = 0; i < n; i++) \{\par
+        result[i] = countDivisors(A[i]);\par
+    \}\par
+\}\par
+\par
+int main() \{\par
+    int A[] = \{2, 3, 4, 5\};\par
+    int n = sizeof(A) / sizeof(A[0]);\par
+    int result[n];\par
+    findDivisors(A, n, result);\par
+    printf("Count of divisors for each element:\\n");\par
+    for (int i = 0; i < n; i++) \{\par
+        printf("%d ", result[i]);\par
+    \}\par
+    printf("\\n");\par
+    return 0;\par
+\}\par
+\f1\fs22\par
+\b\f2\fs32 Q 2. Prime Sum\par
+\b0\fs28 #include <stdio.h>\par
+#include <stdbool.h>\par
+\par
+bool isPrime(int num) \{\par
+    if (num <= 1) \{\par
+        return false;\par
+    \}\par
+    for (int i = 2; i * i <= num; i++) \{\par
+        if (num % i == 0) \{\par
+            return false;\par
+        \}\par
+    \}\par
+    return true;\par
+\}\par
+\par
+void findPrimes(int A, int result[]) \{\par
+    int primes[A/2];\par
+    int count = 0;\par
+    for (int i = 2; i <= A; i++) \{\par
+        if (isPrime(i)) \{\par
+            primes[count++] = i;\par
+        \}\par
+    \}\par
+\par
+    for (int i = 0; i < count; i++) \{\par
+        for (int j = i; j < count; j++) \{\par
+            if (primes[i] + primes[j] == A) \{\par
+                result[0] = primes[i];\par
+                result[1] = primes[j];\par
+                return;\par
+            \}\par
+        \}\par
+    \}\par
+\}\par
+\par
+int main() \{\par
+    int A = 4;\par
+    int result[2];\par
+    findPrimes(A, result);\par
+    printf("Prime numbers whose sum is %d: [%d, %d]\\n", A, result[0], result[1]);\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 Q3. Lucky Numbers\par
+\b0\fs28 #include <stdio.h>\par
+#include <stdbool.h>\par
+\par
+bool isPrime(int num) \{\par
+    if (num <= 1) \{\par
+        return false;\par
+    \}\par
+    for (int i = 2; i * i <= num; i++) \{\par
+        if (num % i == 0) \{\par
+            return false;\par
+        \}\par
+    \}\par
+    return true;\par
+\}\par
+\par
+int countPrimeFactors(int num) \{\par
+    int count = 0;\par
+    for (int i = 2; i <= num; i++) \{\par
+        if (isPrime(i) && num % i == 0) \{\par
+            count++;\par
+            while (num % i == 0) \{\par
+                num /= i;\par
+            \}\par
+        \}\par
+    \}\par
+    return count;\par
+\}\par
+\par
+int countLuckyNumbers(int A) \{\par
+    int count = 0;\par
+    for (int i = 1; i <= A; i++) \{\par
+        if (countPrimeFactors(i) == 2) \{\par
+            count++;\par
+        \}\par
+    \}\par
+    return count;\par
+\}\par
+int main() \{\par
+    int A = 12;\par
+    int count = countLuckyNumbers(A);\par
+    printf("Count of lucky numbers between 1 and %d: %d\\n", A, count);\par
+    return 0;\par
+\}\par
+\f1\fs22\par
+\b\f2\fs32 Q 4. Prime Subsequence\rquote s\par
+\b0\fs28 #include <stdio.h>\par
+#include <stdbool.h>\par
+\par
+bool isPrime(int num) \{\par
+    if (num <= 1) \{\par
+        return false;\par
+    \}\par
+    for (int i = 2; i * i <= num; i++) \{\par
+        if (num % i == 0) \{\par
+            return false;\par
+        \}\par
+    \}\par
+    return true;\par
+\}\par
+\par
+int countPrimeSubsequences(int A[], int n) \{\par
+    int count = 0;\par
+    for (int i = 0; i < (1 << n); i++) \{\par
+        int subsequence = 0;\par
+        for (int j = 0; j < n; j++) \{\par
+            if (i & (1 << j)) \{\par
+                subsequence |= A[j];\par
+            \}\par
+        \}\par
+        if (subsequence > 0 && isPrime(subsequence)) \{\par
+            count++;\par
+        \}\par
+    \}\par
+    return count;\par
+\}\par
+\par
+int main() \{\par
+    int A[] = \{1, 2, 3\};\par
+    int n = sizeof(A) / sizeof(A[0]);\par
+    int count = countPrimeSubsequences(A, n);\par
+    printf("Number of prime subsequences: %d\\n", count);\par
+    return 0;\par
+\}\par
+\par
+\b\f1\fs32 Q 5. Compute nCr % m\b0\fs22\par
+\f2\fs28 #include <stdio.h>\par
+\par
+int factorial(int num) \{\par
+    int result = 1;\par
+    for (int i = 2; i <= num; i++) \{\par
+        result *= i;\par
+    \}\par
+    return result;\par
+\}\par
+\par
+int nCrModM(int n, int r, int m) \{\par
+    int numerator = factorial(n);\par
+    int denominator = factorial(n-r) * factorial(r);\par
+    int inverse_denominator = 1;\par
+    for (int i = 1; i <= r; i++) \{\par
+        inverse_denominator = (inverse_denominator * i) % m;\par
+    \}\par
+    int result = (numerator * inverse_denominator) % m;\par
+    return result;\par
+\}\par
+\par
+int main() \{\par
+    int n = 5;\par
+    int r = 2;\par
+    int m = 13;\par
+\par
+    int result = nCrModM(n, r, m);\par
+\par
+    printf("%dC%d mod %d = %d\\n", n, r, m, result);\par
+\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 Q 6. Compute nCr % p\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int factorial(int num, int p) \{\par
+    int result = 1;\par
+    for (int i = 2; i <= num; i++) \{\par
+        result = (result * i) % p;\par
+    \}\par
+    return result;\par
+\}\par
+\par
+int modInverse(int num, int p) \{\par
+    int result = 1;\par
+    int exponent = p - 2;\par
+    while (exponent > 0) \{\par
+        if (exponent % 2 == 1) \{\par
+            result = (result * num) % p;\par
+        \}\par
+        num = (num * num) % p;\par
+        exponent /= 2;\par
+    \}\par
+    return result;\par
+\}\par
+\par
+int nCrModP(int n, int r, int p) \{\par
+    int numerator = factorial(n, p);\par
+    int denominator = (factorial(n-r, p) * factorial(r, p)) % p;\par
+    int inverse_denominator = modInverse(denominator, p);\par
+    int result = (numerator * inverse_denominator) % p;\par
+    return result;\par
+\}\par
+\par
+int main() \{\par
+    int n = 5;\par
+    int r = 2;\par
+    int p = 13;\par
+    int result = nCrModP(n, r, p);\par
+    printf("%dC%d mod %d = %d\\n", n, r, p, result);\par
+    return 0;\par
+\}\par
+\f1\fs22\par
+\b\f2\fs32 Q 7. Delete one\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int gcd(int a, int b) \{\par
+    if (b == 0) \{\par
+        return a;\par
+    \}\par
+    return gcd(b, a % b);\par
+\}\par
+\par
+int maxGCD(int A[], int n) \{\par
+    int prefixGCD[n];\par
+    int suffixGCD[n];\par
+    prefixGCD[0] = A[0];\par
+    suffixGCD[n-1] = A[n-1];\par
+    for (int i = 1; i < n; i++) \{\par
+        prefixGCD[i] = gcd(prefixGCD[i-1], A[i]);\par
+    \}\par
+    for (int i = n-2; i >= 0; i--) \{\par
+        suffixGCD[i] = gcd(suffixGCD[i+1], A[i]);\par
+    \}\par
+    int max_gcd = 0;\par
+    for (int i = 0; i < n; i++) \{\par
+        int gcd_without_i;\par
+        if (i == 0) \{\par
+            gcd_without_i = suffixGCD[1];\par
+        \} else if (i == n-1) \{\par
+            gcd_without_i = prefixGCD[n-2];\par
+        \} else \{\par
+            gcd_without_i = gcd(prefixGCD[i-1], suffixGCD[i+1]);\par
+        \}\par
+        if (gcd_without_i > max_gcd) \{\par
+            max_gcd = gcd_without_i;\par
+        \}\par
+    \}\par
+    return max_gcd;\par
+\}\par
+\par
+int main() \{\par
+    int A[] = \{12, 15, 18\};\par
+    int n = sizeof(A) / sizeof(A[0]);\par
+    int result = maxGCD(A, n);\par
+    printf("Maximum GCD after deleting one element: %d\\n", result);\par
+    return 0;\par
+\}\par
+\b\fs32 Q 8. Enumerating GCD\par
+\b0\fs28 #include <stdio.h>\par
+#include <string.h>\par
+\par
+int gcd(int a, int b) \{\par
+    while (b) \{\par
+        int temp = b;\par
+        b = a % b;\par
+        a = temp;\par
+    \}\par
+    return a;\par
+\}\par
+char* find_gcd(const char* A, const char* B) \{\par
+    int a = 0, b = 0;\par
+    int lenA = strlen(A), lenB = strlen(B);\par
+       for (int i = 0; i < lenA; i++) \{\par
+        a = a * 10 + (A[i] - '0');\par
+    \}\par
+    for (int i = 0; i < lenB; i++) \{\par
+        b = b * 10 + (B[i] - '0');\par
+    \}\par
+    int result = gcd(a, b);\par
+    int digits = 0;\par
+    int tempResult = result;\par
+    while (tempResult > 0) \{\par
+        tempResult /= 10;\par
+        digits++;\par
+    \}\par
+    char* output = (char*)malloc((digits + 1) * sizeof(char));\par
+    sprintf(output, "%d", result);\par
+    return output;\par
+\}\par
+\par
+int main() \{\par
+    const char* A = "1";\par
+    const char* B = "3";\par
+    char* result = find_gcd(A, B);\par
+    printf("%s\\n", result);  // Output: "1"\par
+   free(result);   \par
+    return 0;\par
+\}\par
+\par
+\b\fs32 Q 9. Greatest Common Divisor\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int gcd(int a, int b) \{\par
+    if (b == 0) \{\par
+        return a;\par
+    \}\par
+    return gcd(b, a % b);\par
+\}\par
+\par
+int main() \{\par
+    int A = 4;\par
+    int B = 6;\par
+    int result = gcd(A, B);\par
+    printf("GCD of %d and %d is %d\\n", A, B, result);\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 Q 10. Pubg\par
+\b0\fs28 #include <stdio.h>\par
+#include <stdlib.h>\par
+\par
+typedef struct \{\par
+    int strength;\par
+    int index;\par
+\} Player;\par
+\par
+int cmp(const void* a, const void* b) \{\par
+    Player* p1 = (Player*)a;\par
+    Player* p2 = (Player*)b;\par
+    return p2->strength - p1->strength;\par
+\}\par
+\par
+int findMinHealth(int A[], int n) \{\par
+    Player players[n];\par
+    for (int i = 0; i < n; i++) \{\par
+        players[i].strength = A[i];\par
+        players[i].index = i;\par
+    \}\par
+    qsort(players, n, sizeof(Player), cmp);\par
+    while (n > 1) \{\par
+        Player p1 = players[0];\par
+        Player p2 = players[1];\par
+\par
+        if (p1.strength < p2.strength) \{\par
+            int new_strength = p2.strength - p1.strength;\par
+            players[1].strength = new_strength;\par
+            qsort(players + 1, n - 1, sizeof(Player), cmp);\par
+        \} else \{\par
+            int new_strength = p1.strength - p2.strength;\par
+            players[0].strength = new_strength;\par
+            qsort(players, n - 1, sizeof(Player), cmp);\par
+        \}\par
+        n--;\par
+    \}\par
+    return players[0].strength;\par
+\}\par
+\par
+int main() \{\par
+    int A[] = \{6, 4\};\par
+    int n = sizeof(A) / sizeof(A[0]);\par
+    int result = findMinHealth(A, n);\par
+    printf("Minimum health of last surviving person is %d\\n", result);\par
+    return 0;\par
+\}\par
+\par
+\par
+
+\pard\sa200\sl276\slmult1\qc\b\f1\fs40 Homework\par
+
+\pard\sa200\sl276\slmult1\f2\fs32 Q 1. Number Of Open Doors\par
+\b0\fs28 #include <stdio.h>\par
+#include <math.h>\par
+\par
+int countOpenDoors(int A) \{\par
+    int result = sqrt(A);\par
+    return result;\par
+\}\par
+\par
+int main() \{\par
+    int A = 5;\par
+    int result = countOpenDoors(A);\par
+    printf("Number of open doors at the end is %d\\n", result);\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 Q 2. Aptitude 47\par
+\b0\fs28 When two dice are thrown, each die has 6 faces with numbers 1 through 6. The total number of outcomes when throwing two dice is 6 * 6 = 36.\par
+\par
+To find the probability that the sum of the two dice will be a prime number, we need to determine the combinations of outcomes that result in prime numbers and divide that by the total number of outcomes (36).\par
+\par
+Prime numbers less than 12 are: 2, 3, 5, 7, 11.\par
+\par
+Now let's see the combinations of outcomes that sum to each prime number:\par
+\par
+Prime 2: Only one combination possible (1 + 1).\par
+Prime 3: Two combinations possible (1 + 2, 2 + 1).\par
+Prime 5: Four combinations possible (1 + 4, 2 + 3, 3 + 2, 4 + 1).\par
+Prime 7: Six combinations possible (1 + 6, 2 + 5, 3 + 4, 4 + 3, 5 + 2, 6 + 1).\par
+Prime 11: Two combinations possible (5 + 6, 6 + 5).\par
+So, the total number of combinations resulting in prime sums is 1 + 2 + 4 + 6 + 2 = 15.\par
+\par
+Now, the probability of getting a prime sum when throwing two dice is:\par
+P(prime sum) = (Number of prime sum combinations) / (Total number of outcomes)\par
+P(prime sum) = 15 / 36\par
+P(prime sum) = 5 / 12\par
+\par
+The probability that the sum of the two dice will be a prime number is 5/12\par
+\fs32\par
+\b Q 3. Prime Addition\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int isPrime(int num) \{\par
+    if (num <= 1) \{\par
+        return 0;\par
+    \}\par
+    for (int i = 2; i * i <= num; i++) \{\par
+        if (num % i == 0) \{\par
+            return 0;\par
+        \}\par
+    \}\par
+    return 1;\par
+\}\par
+\par
+int minPrimesSum(int N) \{\par
+    if (N <= 2) \{\par
+        return 1;\par
+    \}\par
+    if (isPrime(N - 2)) \{\par
+        return 2;\par
+    \}\par
+    return 3;\par
+\}\par
+\par
+int main() \{\par
+    int N;\par
+    printf("Enter the even number: ");\par
+    scanf("%d", &N);\par
+    int minPrimes = minPrimesSum(N);\par
+    printf("Minimum number of prime numbers needed: %d\\n", minPrimes);\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 Q 4. Distinct Primes\par
+\b0\fs28 #include <stdio.h>\par
+#include <math.h>\par
+\par
+int isPrime(int num) \{\par
+    if (num <= 1) \{\par
+        return 0;\par
+    \}\par
+    for (int i = 2; i <= sqrt(num); i++) \{\par
+        if (num % i == 0) \{\par
+            return 0;\par
+        \}\par
+    \}\par
+    return 1;\par
+\}\par
+\par
+int countDistinctPrimeDivisors(int A[], int N) \{\par
+    int product = 1;\par
+    for (int i = 0; i < N; i++) \{\par
+        product *= A[i];\par
+    \}\par
+    int count = 0;\par
+    for (int i = 2; i <= sqrt(product); i++) \{\par
+        if (isPrime(i) && product % i == 0) \{\par
+            count++;\par
+            while (product % i == 0) \{\par
+                product /= i;\par
+            \}\par
+        \}\par
+    \}\par
+    if (product > 1) \{\par
+        count++;\par
+    \}\par
+    return count;\par
+\}\par
+\par
+int main() \{\par
+    int A[] = \{1, 2, 3, 4\};\par
+    int N = sizeof(A) / sizeof(A[0]);\par
+    int count = countDistinctPrimeDivisors(A, N);\par
+    printf("Number of distinct prime divisors: %d\\n", count);\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 Q 5. Sorted Permutation Rank\par
+\b0\fs28 #include <stdio.h>\par
+#include <string.h>\par
+\par
+#define MOD 1000003\par
+\par
+int fact(int n) \{\par
+    if (n <= 1) \{\par
+        return 1;\par
+    \}\par
+    return n * fact(n - 1) % MOD;\par
+\}\par
+\par
+int findRank(char* A) \{\par
+    int len = strlen(A);\par
+    int rank = 1;\par
+    for (int i = 0; i < len; i++) \{\par
+        int count = 0;\par
+        for (int j = i + 1; j < len; j++) \{\par
+            if (A[j] < A[i]) \{\par
+                count++;\par
+            \}\par
+        \}\par
+        rank += count * fact(len - i - 1) % MOD;\par
+        rank %= MOD;\par
+    \}\par
+    return rank;\par
+\}\par
+\par
+int main() \{\par
+    char A[] = "acb";\par
+    int rank = findRank(A);\par
+    printf("Rank of %s: %d\\n", A, rank);\par
+    return 0;\par
+\}\par
+\fs32\par
+\b Q 6. Sorted Permutation Rank with Repeats\par
+\b0\fs28 #include <stdio.h>\par
+#include <string.h>\par
+#define MOD 1000003\par
+\par
+int factorial(int n) \{\par
+    if (n <= 1) \{\par
+        return 1;\par
+    \}\par
+    return (n * factorial(n - 1)) % MOD;\par
+\}\par
+\par
+int findRank(char* A) \{\par
+    int freq[256] = \{0\};\par
+    int n = strlen(A);\par
+    for (int i = 0; i < n; i++) \{\par
+        freq[A[i]]++;\par
+    \}\par
+    int total_permutations = factorial(n);\par
+    int rank = 1;\par
+    for (int i = 0; i < n; i++) \{\par
+        int smaller_chars = 0;\par
+        for (int j = 'A'; j < A[i]; j++) \{\par
+            smaller_chars += freq[j];\par
+        \}\par
+        rank = (rank + (smaller_chars * factorial(n - i - 1)) % MOD) % MOD;\par
+        freq[A[i]]--;\par
+    \}\par
+    return rank;\par
+\}\par
+\par
+int main() \{\par
+    char A[1000001];\par
+    scanf("%s", A);\par
+    int result = findRank(A);\par
+    printf("%d\\n", result);\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 Q 7. GCD_CMPL\par
+\b0\fs28 The time complexity of the given C++ function to find the GCD of two integers n and m, assuming n > m, is \f3\lang1032\'c8(log n). This is because the function uses the Euclidean algorithm to find the GCD, which has a time complexity of \'c8(log n) in the worst case.\par
+\par
+\b\fs32 Q 8. Largest Coprime Divisor\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int gcd(int a, int b) \{\par
+    if (b == 0) \{\par
+        return a;\par
+    \}\par
+    return gcd(b, a % b);\par
+\}\par
+\par
+int max_coprime_divisor(int A, int B) \{\par
+    int result = 1;\par
+    for (int X = A; X >= 1; X--) \{\par
+        if (A % X == 0 && gcd(X, B) == 1) \{\par
+            return X;\par
+        \}\par
+    \}\par
+    return result;\par
+\}\par
+\par
+int main() \{\par
+    int A, B;\par
+    scanf("%d %d", &A, &B);\par
+    int max_value = max_coprime_divisor(A, B);\par
+    printf("%d\\n", max_value);\par
+    return 0;\par
+\}\par
+\par
+\b\f2\fs32\lang2057 Q 9. Divisor game\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int main() \{\par
+    int A, B, C;\par
+    printf("\\nInput A: ");\par
+    scanf("%d", &A);\par
+    printf("\\nInput B: ");\par
+    scanf("%d", &B);\par
+    printf("\\nInput C: ");\par
+    scanf("%d", &C);\par
+    int count = A / (B * C);\par
+    printf("\\nNumber of special integers: %d\\n", count);\par
+    return 0;\par
+\}\par
+\fs32\par
+\b Q 10. All GCD Pair\par
+\b0\fs28 #include <stdio.h>\par
+#include <stdbool.h>\par
+#include <stdlib.h>\par
+\par
+// Structure to store frequency of numbers\par
+typedef struct \{\par
+    int number;\par
+    int frequency;\par
+\} NumberFrequency;\par
+\par
+// Function to compare two NumberFrequency elements for sorting\par
+int compare(const void *a, const void *b) \{\par
+    return ((NumberFrequency *)a)->number - ((NumberFrequency *)b)->number;\par
+\}\par
+\par
+int* find_original_numbers(int* A, int n, int* len) \{\par
+    // Sort the array for easier counting\par
+    qsort(A, n, sizeof(int), compare);\par
+\par
+    // Count unique numbers and their frequencies\par
+    int uniqueCount = 0;\par
+    NumberFrequency uniqueNumbers[n];\par
+    \par
+    int currentNumber = A[0];\par
+    int currentFrequency = 1;\par
+\par
+    for (int i = 1; i < n; i++) \{\par
+        if (A[i] == currentNumber) \{\par
+            currentFrequency++;\par
+        \} else \{\par
+            uniqueNumbers[uniqueCount].number = currentNumber;\par
+            uniqueNumbers[uniqueCount].frequency = currentFrequency;\par
+            uniqueCount++;\par
+\par
+            currentNumber = A[i];\par
+            currentFrequency = 1;\par
+        \}\par
+    \}\par
+    uniqueNumbers[uniqueCount].number = currentNumber;\par
+    uniqueNumbers[uniqueCount].frequency = currentFrequency;\par
+    uniqueCount++;\par
+    // Create result array\par
+    int *result = (int *)malloc(uniqueCount * sizeof(int));\par
+    for (int i = 0; i < uniqueCount; i++) \{\par
+        result[i] = uniqueNumbers[i].number;\par
+    \}\par
+\par
+    *len = uniqueCount;\par
+    return result;\par
+\}\par
+int main() \{\par
+    int n;\par
+    scanf("%d", &n);\par
+    int A[n];\par
+    for (int i = 0; i < n; i++) \{\par
+        scanf("%d", &A[i]);\par
+    \}\par
+\par
+    int len;\par
+    int *original_numbers = find_original_numbers(A, n, &len);\par
+    printf("Original Numbers: ");\par
+    for (int i = 0; i < len; i++) \{\par
+        printf("%d ", original_numbers[i]);\par
+    \}\par
+    printf("\\n");\par
+    free(original_numbers);\par
+    return 0;\par
+\}.\lang9\par
+}
+ 

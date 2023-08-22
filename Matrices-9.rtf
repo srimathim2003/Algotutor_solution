@@ -1,0 +1,449 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset0 Times New Roman;}}
+{\*\generator Riched20 10.0.10240}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\qc\b\fs40\lang9 Assignment : Matrices\par
+\par
+
+\pard\sa200\sl276\slmult1 1. Add two matrices\par
+\b0\f1\fs28 #include <stdio.h>\par
+#define ROWS 3\par
+#define COLS 3\par
+
+\pard\ri-732\sa200\sl276\slmult1\par
+
+\pard\sa200\sl276\slmult1 void add_matrices(int A[][COLS], int B[][COLS], int C[][COLS]) \{\par
+    for (int i = 0; i < ROWS; i++) \{\par
+        for (int j = 0; j < COLS; j++) \{\par
+            C[i][j] = A[i][j] + B[i][j];\par
+        \}\par
+    \}\par
+\}\par
+\par
+void print_matrix(int mat[][COLS]) \{\par
+    for (int i = 0; i < ROWS; i++) \{\par
+        for (int j = 0; j < COLS; j++) \{\par
+            printf("%d ", mat[i][j]);\par
+        \}\par
+        printf("\\n");\par
+    \}\par
+\}\par
+\par
+int main() \{\par
+    int A[ROWS][COLS] = \{\{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\}\};\par
+    int B[ROWS][COLS] = \{\{9, 8, 7\}, \{6, 5, 4\}, \{3, 2, 1\}\};\par
+    int C[ROWS][COLS];\par
+\par
+    add_matrices(A, B, C);\par
+    printf("Matrix A:\\n");\par
+    print_matrix(A);\par
+    printf("Matrix B:\\n");\par
+    print_matrix(B);\par
+    printf("Matrix C:\\n");\par
+    print_matrix(C);\par
+    return 0;\par
+\}\par
+\par
+\b\f0\fs40 2. Anti Diagonals\par
+\b0\f1\fs28 #include <stdio.h>\par
+#define N 3\par
+\par
+void anti_diagonals(int mat[][N]) \{\par
+    for (int k = 0; k < N; k++) \{\par
+        printf("[");\par
+        for (int i = 0, j = k; j >= 0; i++, j--) \{\par
+            printf("%d ", mat[i][j]);\par
+        \}\par
+        printf("]\\n");\par
+    \}\par
+    for (int k = 1; k < N; k++) \{\par
+        printf("[");\par
+        for (int i = k, j = N - 1; i < N; i++, j--) \{\par
+            printf("%d ", mat[i][j]);\par
+        \}\par
+        printf("]\\n");\par
+    \}\par
+\}\par
+int main() \{\par
+    int mat[N][N] = \{\{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\}\};\par
+    anti_diagonals(mat);\par
+    return 0;\par
+\}\par
+\par
+\b\f0\fs40 3. Column Sum\par
+\b0\f1\fs28 #include <stdio.h>\par
+#define ROWS 3\par
+#define COLS 3\par
+\par
+void column_sums(int mat[][COLS]) \{\par
+    int sums[COLS] = \{0\};\par
+\par
+    for (int j = 0; j < COLS; j++) \{\par
+        for (int i = 0; i < ROWS; i++) \{\par
+            sums[j] += mat[i][j];\par
+        \}\par
+    \}\par
+\par
+    printf("[");\par
+    for (int j = 0; j < COLS; j++) \{\par
+        printf("%d", sums[j]);\par
+        if (j < COLS - 1) \{\par
+            printf(", ");\par
+        \}\par
+    \}\par
+    printf("]\\n");\par
+\}\par
+int main() \{\par
+    int mat[ROWS][COLS] = \{\{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\}\};\par
+    column_sums(mat);\par
+    return 0;\par
+\}\par
+\par
+\b\f0\fs40 4. Matix Multiplication\par
+\f1\par
+\b0\fs28 #include <stdio.h>\par
+#define M 2\par
+#define N 2\par
+#define P 2\par
+\par
+void multiply_matrices(int A[][N], int B[][P], int C[][P]) \{\par
+    for (int i = 0; i < M; i++) \{\par
+        for (int j = 0; j < P; j++) \{\par
+            int sum = 0;\par
+            for (int k = 0; k < N; k++) \{\par
+                sum += A[i][k] * B[k][j];\par
+            \}\par
+            C[i][j] = sum;\par
+        \}\par
+    \}\par
+\}\par
+\par
+void print_matrix(int matrix[][P]) \{\par
+    for (int i = 0; i < M; i++) \{\par
+        for (int j = 0; j < P; j++) \{\par
+            printf("%d ", matrix[i][j]);\par
+        \}\par
+        printf("\\n");\par
+    \}\par
+\}\par
+\par
+int main() \{\par
+    int A[M][N] = \{\{1, 2\}, \{3, 4\}\};\par
+    int B[N][P] = \{\{5, 6\}, \{7, 8\}\};\par
+    int C[M][P];\par
+    multiply_matrices(A, B, C);\par
+    printf("Product Matrix:\\n");\par
+    print_matrix(C);\par
+    return 0;\par
+\}\par
+\f0\par
+\b\fs40 5. Matrix Subtraction\par
+\b0\f1\fs28 #include <stdio.h>\par
+#define ROWS 3\par
+#define COLS 3\par
+\par
+void matrix_difference(int A[][COLS], int B[][COLS], int C[][COLS]) \{\par
+    for (int i = 0; i < ROWS; i++) \{\par
+        for (int j = 0; j < COLS; j++) \{\par
+            C[i][j] = A[i][j] - B[i][j];\par
+        \}\par
+    \}\par
+\}\par
+void print_matrix(int mat[][COLS]) \{\par
+    for (int i = 0; i < ROWS; i++) \{\par
+        for (int j = 0; j < COLS; j++) \{\par
+            printf("%d ", mat[i][j]);\par
+        \}\par
+        printf("\\n");\par
+    \}\par
+\}\par
+\par
+int main() \{\par
+    int A[ROWS][COLS] = \{\{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\}\};\par
+    int B[ROWS][COLS] = \{\{9, 8, 7\}, \{6, 5, 4\}, \{3, 2, 1\}\};\par
+    int C[ROWS][COLS];\par
+    matrix_difference(A, B, C);\par
+    printf("Matrix A:\\n");\par
+    print_matrix(A);\par
+    printf("Matrix B:\\n");\par
+    print_matrix(B);\par
+    printf("Matrix C:\\n");\par
+    print_matrix(C);\par
+    return 0;\par
+\}\par
+\par
+\b\f0\fs40 6. Matrix Transpose\par
+\b0\fs28\par
+\f1 #include <stdio.h>\par
+#define ROWS 3\par
+#define COLS 3\par
+\par
+void matrix_transpose(int mat[][COLS], int transposed[][ROWS]) \{\par
+    for (int i = 0; i < ROWS; i++) \{\par
+        for (int j = 0; j < COLS; j++) \{\par
+            transposed[j][i] = mat[i][j];\par
+        \}\par
+    \}\par
+\}\par
+void print_matrix(int mat[][COLS], int rows, int cols) \{\par
+    for (int i = 0; i < rows; i++) \{\par
+        for (int j = 0; j < cols; j++) \{\par
+            printf("%d ", mat[i][j]);\par
+        \}\par
+        printf("\\n");\par
+    \}\par
+\}\par
+\par
+int main() \{\par
+    int matrix[ROWS][COLS] = \{\{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\}\};\par
+    int transposed[COLS][ROWS];\par
+    matrix_transpose(matrix, transposed);\par
+    printf("Matrix:\\n");\par
+    print_matrix(matrix, ROWS, COLS);\par
+    printf("Transposed Matrix:\\n");\par
+    print_matrix(transposed, COLS, ROWS);\par
+    return 0;\par
+\}\par
+\par
+\b\f0\fs40 7. Spiral Order Matrix II\par
+\par
+\b0\f1\fs28 #include <stdio.h>\par
+void generate_spiral_matrix(int n, int matrix[][n]) \{\par
+    int startRow = 0, endRow = n - 1;\par
+    int startCol = 0, endCol = n - 1;\par
+    int num = 1;\par
+\par
+    while (startRow <= endRow && startCol <= endCol) \{\par
+        \par
+        for (int col = startCol; col <= endCol; col++) \{\par
+            matrix[startRow][col] = num++;\par
+        \}\par
+        startRow++;\par
+\par
+        for (int row = startRow; row <= endRow; row++) \{\par
+            matrix[row][endCol] = num++;\par
+        \}\par
+        endCol--;\par
+\par
+        if (startRow <= endRow) \{\par
+            for (int col = endCol; col >= startCol; col--) \{\par
+                matrix[endRow][col] = num++;\par
+            \}\par
+            endRow--;\par
+        \}\par
+        if (startCol <= endCol) \{\par
+            for (int row = endRow; row >= startRow; row--) \{\par
+                matrix[row][startCol] = num++;\par
+            \}\par
+            startCol++;\par
+        \}\par
+    \}\par
+\}\par
+void print_matrix(int n, int matrix[][n]) \{\par
+    for (int i = 0; i < n; i++) \{\par
+        for (int j = 0; j < n; j++) \{\par
+            printf("%d ", matrix[i][j]);\par
+        \}\par
+        printf("\\n");\par
+    \}\par
+\}\par
+\par
+int main() \{\par
+    int n = 3;\par
+    int matrix[n][n];\par
+    generate_spiral_matrix(n, matrix);\par
+    printf("Generated Spiral Matrix:\\n");\par
+    print_matrix(n, matrix);\par
+    return 0;\par
+\}\par
+\f0\par
+\b\fs40 8. Rotate Matrix\par
+\par
+\b0\f1\fs28 #include <stdio.h>\par
+#define N 3\par
+void rotate_matrix(int matrix[][N]) \{\par
+    int rotated[N][N];\par
+\par
+    for (int i = 0; i < N; i++) \{\par
+        for (int j = 0; j < N; j++) \{\par
+            rotated[j][N - 1 - i] = matrix[i][j];\par
+        \}\par
+    \}\par
+\par
+    // Copy the rotated matrix back to the original matrix\par
+    for (int i = 0; i < N; i++) \{\par
+        for (int j = 0; j < N; j++) \{\par
+            matrix[i][j] = rotated[i][j];\par
+        \}\par
+    \}\par
+\}\par
+\par
+void print_matrix(int matrix[][N]) \{\par
+    for (int i = 0; i < N; i++) \{\par
+        for (int j = 0; j < N; j++) \{\par
+            printf("%d ", matrix[i][j]);\par
+        \}\par
+        printf("\\n");\par
+    \}\par
+\}\par
+\par
+int main() \{\par
+    int matrix[N][N] = \{\{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\}\};\par
+    printf("Original Matrix:\\n");\par
+    print_matrix(matrix);\par
+    rotate_matrix(matrix);\par
+    printf("Rotated Matrix:\\n");\par
+    print_matrix(matrix);\par
+    return 0;\par
+\}\par
+\f0\par
+\b\fs40 9. Are Matrices Same\par
+\par
+\b0\f1\fs28 #include <stdio.h>\par
+#include <stdbool.h>\par
+#define N 2\par
+\par
+bool are_matrices_identical(int matrix1[][N], int matrix2[][N]) \{\par
+    for (int i = 0; i < N; i++) \{\par
+        for (int j = 0; j < N; j++) \{\par
+            if (matrix1[i][j] != matrix2[i][j]) \{\par
+                return false;\par
+            \}\par
+        \}\par
+    \}\par
+    return true;\par
+\}\par
+\par
+int main() \{\par
+    int matrix1[N][N] = \{\{1, 2\}, \{3, 4\}\};\par
+    int matrix2[N][N] = \{\{1, 2\}, \{3, 4\}\};\par
+\par
+    if (are_matrices_identical(matrix1, matrix2)) \{\par
+        printf("The matrices are identical.\\n");\par
+    \} else \{\par
+        printf("The matrices are not identical.\\n");\par
+    \}\par
+    return 0;\par
+\}\par
+\f0\par
+\b\fs40 10. Minor Diagonal Sum\par
+\par
+\b0\f1\fs28 #include <stdio.h>\par
+#define N 3\par
+int sum_minor_diagonal(int matrix[][N]) \{\par
+    int sum = 0;\par
+    for (int i = 0; i < N; i++) \{\par
+        for (int j = 0; j < N; j++) \{\par
+            if (i + j == N - 1) \{\par
+                sum += matrix[i][j];\par
+            \}\par
+        \}\par
+    \}\par
+\par
+    return sum;\par
+\}\par
+\par
+int main() \{\par
+    int matrix[N][N] = \{\{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\}\};\par
+    int sum = sum_minor_diagonal(matrix);\par
+    printf("Sum of elements in the minor diagonal: %d\\n", sum);\par
+    return 0;\par
+\}\par
+\b\f0\fs40\par
+11. Row Sum\par
+\b0\f1\fs28\par
+#include <stdio.h>\par
+#define M 3\par
+#define N 3\par
+\par
+void sum_of_rows(int matrix[][N], int sums[]) \{\par
+    for (int i = 0; i < M; i++) \{\par
+        int sum = 0;\par
+        for (int j = 0; j < N; j++) \{\par
+            sum += matrix[i][j];\par
+        \}\par
+        sums[i] = sum;\par
+    \}\par
+\}\par
+void print_array(int arr[], int size) \{\par
+    for (int i = 0; i < size; i++) \{\par
+        printf("%d ", arr[i]);\par
+    \}\par
+    printf("\\n");\par
+\}\par
+\par
+int main() \{\par
+    int matrix[M][N] = \{\{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\}\};\par
+    int sums[M];\par
+    sum_of_rows(matrix, sums);\par
+    printf("Sums of each row: ");\par
+    print_array(sums, M);\par
+    return 0;\par
+\}\par
+\f0\par
+\b\fs40 12. Row to Column Zero\par
+\par
+\b0\f1\fs28 #include <stdio.h>\par
+#define M 3\par
+#define N 3\par
+void set_zeros(int matrix[][N]) \{\par
+    int rows[M] = \{0\};\par
+    int cols[N] = \{0\};\par
+\par
+    // Iterate through each element of the matrix\par
+    for (int i = 0; i < M; i++) \{\par
+        for (int j = 0; j < N; j++) \{\par
+            if (matrix[i][j] == 0) \{\par
+                rows[i] = 1;\par
+                cols[j] = 1;\par
+            \}\par
+        \}\par
+    \}\par
+\par
+    // Iterate through each element of the matrix again\par
+    for (int i = 0; i < M; i++) \{\par
+        for (int j = 0; j < N; j++) \{\par
+            if (rows[i] == 1 || cols[j] == 1) \{\par
+                matrix[i][j] = 0;\par
+            \}\par
+        \}\par
+    \}\par
+\}\par
+\par
+void print_matrix(int matrix[][N]) \{\par
+    for (int i = 0; i < M; i++) \{\par
+        for (int j = 0; j < N; j++) \{\par
+            printf("%d ", matrix[i][j]);\par
+        \}\par
+        printf("\\n");\par
+    \}\par
+\}\par
+\par
+int main() \{\par
+    int matrix[M][N] = \{\{1, 2, 3\}, \{4, 0, 6\}, \{7, 8, 9\}\};\par
+    printf("Original Matrix:\\n");\par
+    print_matrix(matrix);\par
+    set_zeros(matrix);\par
+    printf("Modified Matrix:\\n");\par
+    print_matrix(matrix);\par
+    return 0;\par
+\}\par
+\f0\par
+\b\fs40 13. Main Diagonal Sum\par
+\b0\fs28\par
+\f1 #include <stdio.h>\par
+#define N 3\par
+int sum_of_main_diagonal(int matrix[][N]) \{\par
+    int sum = 0;\par
+    for (int i = 0; i < N; i++) \{\par
+        sum += matrix[i][i];\par
+    \}\par
+    return sum;\par
+\}\par
+\par
+int main() \{\par
+    int matrix[N][N] = \{\{1, 2, 3\}, \{4, 5, 6\}, \{7, 8, 9\}\};\par
+    int sum = sum_of_main_diagonal(matrix);\par
+    printf("Sum of main diagonal: %d\\n", sum);\par
+    return 0;\par
+\}\par
+}
+ 

@@ -1,0 +1,464 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2057{\fonttbl{\f0\fnil\fcharset0 Times New Roman;}{\f1\fnil\fcharset0 Arial;}{\f2\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.10240}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs32\lang9\par
+
+\pard\sa200\sl276\slmult1\qc\b\f1\fs40 Assignment : Bit Manipulations\f2\par
+
+\pard\sa200\sl276\slmult1\f0\fs32 1. Single Number\b0\par
+\fs28 #include <stdio.h>\par
+\par
+int find_single_element(int arr[], int n) \{\par
+    int result = 0;\par
+    for (int i = 0; i < n; i++) \{\par
+        result ^= arr[i];\par
+    \}\par
+    return result;\par
+\}\par
+int main() \{\par
+    int input1[] = \{1, 2, 3, 2, 1\};\par
+    int n1 = sizeof(input1) / sizeof(input1[0]);\par
+    printf("Output 1: %d\\n", find_single_element(input1, n1));  // Output: 3\par
+\par
+    int input2[] = \{4, 2, 4\};\par
+    int n2 = sizeof(input2) / sizeof(input2[0]);\par
+    printf("Output 2: %d\\n", find_single_element(input2, n2));  // Output: 2\par
+\par
+    int input3[] = \{1, 1, 2, 2, 3\};\par
+    int n3 = sizeof(input3) / sizeof(input3[0]);\par
+    printf("Output 3: %d\\n", find_single_element(input3, n3));  // Output: 3\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 2. Add Binary Strings\par
+\b0\fs28 #include <stdio.h>\par
+#include <stdlib.h>\par
+#include <string.h>\par
+\par
+char* addBinary(char* a, char* b) \{\par
+    int lenA = strlen(a);\par
+    int lenB = strlen(b);\par
+    int maxLen = (lenA > lenB) ? lenA : lenB;\par
+    char* result = (char*)malloc((maxLen + 2) * sizeof(char));\par
+    int carry = 0;\par
+    int i = lenA - 1;\par
+    int j = lenB - 1;\par
+    int k = maxLen;\par
+    result[k + 1] = '\\0';\par
+    while (i >= 0 || j >= 0 || carry == 1) \{\par
+        int sum = carry;\par
+        if (i >= 0) \{\par
+            sum += a[i--] - '0';\par
+        \}\par
+        if (j >= 0) \{\par
+            sum += b[j--] - '0';\par
+        \}\par
+        result[k--] = sum % 2 + '0';\par
+        carry = sum / 2;\par
+    \}\par
+    return result + k + 1;\par
+\}\par
+\par
+int main() \{\par
+    char a[] = "11";\par
+    char b[] = "1";\par
+    char* result = addBinary(a, b);\par
+    printf("The sum of %s and %s is: %s\\n", a, b, result);\par
+    free(result);\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 3. Number of 1 Bits\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int countSetBits(unsigned int n) \{\par
+    int count = 0;\par
+    while (n) \{\par
+        count += n & 1;\par
+        n >>= 1;\par
+    \}\par
+    return count;\par
+\}\par
+\par
+int main() \{\par
+    unsigned int n = 11;\par
+    int count = countSetBits(n);\par
+    printf("The number of 1 bits in %u is: %d\\n", n, count);\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 4. Interesting Array\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int isInteresting(int arr[], int n) \{\par
+    int xor = 0;\par
+    for (int i = 0; i < n; i++) \{\par
+        xor ^= arr[i];\par
+    \}\par
+    return (xor == 0);\par
+\}\par
+\par
+int main() \{\par
+    int arr1[] = \{1, 2, 3, 4\};\par
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);\par
+    printf("Is the array interesting? %s\\n", isInteresting(arr1, n1) ? "True" : "False");\par
+    int arr2[] = \{0, 0, 0, 0\};\par
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);\par
+    printf("Is the array interesting? %s\\n", isInteresting(arr2, n2) ? "True" : "False");\par
+    int arr3[] = \{5, 3, 8, 9, 7\};\par
+    int n3 = sizeof(arr3) / sizeof(arr3[0]);\par
+    printf("Is the array interesting? %s\\n", isInteresting(arr3, n3) ? "True" : "False");\par
+    return 0;\par
+\}\par
+\fs32\par
+\b 5. Reverse Bits\par
+\b0\fs28 #include <stdio.h>\par
+\par
+unsigned int reverseBits(unsigned int num) \{\par
+    unsigned int reversed = 0;\par
+    int numBits = sizeof(num) * 8;  // Assuming 32-bit integers\par
+\par
+    for (int i = 0; i < numBits; i++) \{\par
+        // Get the i-th bit of num and set it as the (numBits - i - 1)-th bit of reversed\par
+        reversed |= ((num >> i) & 1) << (numBits - i - 1);\par
+    \}\par
+    return reversed;\par
+\}\par
+\par
+int main() \{\par
+    unsigned int input1 = 43261596;\par
+    printf("Output 1: %u\\n", reverseBits(input1));  // Output: 964176192\par
+\par
+    unsigned int input2 = 11;\par
+    printf("Output 2: %u\\n", reverseBits(input2));  // Output: 3221225472\par
+\par
+    unsigned int input3 = 4294967293;\par
+    printf("Output 3: %u\\n", reverseBits(input3));  // Output: 3221225471\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 6. Help from Sam\par
+\b0\fs28 #include <stdio.h>\par
+#include <stdbool.h>\par
+\par
+bool checkSubsetBitwiseOR(int arr[], int n, int target_sum, int current_sum, int index) \{\par
+    if (current_sum == target_sum) \{\par
+        return true;\par
+    \}\par
+\par
+    if (index >= n || current_sum > target_sum) \{\par
+        return false;\par
+    \}\par
+\par
+    // Include the current element and check if the target_sum can be achieved\par
+    if (checkSubsetBitwiseOR(arr, n, target_sum, current_sum | arr[index], index + 1)) \{\par
+        return true;\par
+    \}\par
+    if (checkSubsetBitwiseOR(arr, n, target_sum, current_sum, index + 1)) \{\par
+        return true;\par
+    \}\par
+    return false;\par
+\}\par
+\par
+int main() \{\par
+    int input1[] = \{5, 2, 3\};\par
+    int n1 = sizeof(input1) / sizeof(input1[0]);\par
+    int target_sum1 = 7;\par
+    printf("Output 1: %s\\n", checkSubsetBitwiseOR(input1, n1, target_sum1, 0, 0) ? "True" : "False");\par
+\par
+    int input2[] = \{1, 2, 4, 8\};\par
+    int n2 = sizeof(input2) / sizeof(input2[0]);\par
+    int target_sum2 = 7;\par
+    printf("Output 2: %s\\n", checkSubsetBitwiseOR(input2, n2, target_sum2, 0, 0) ? "True" : "False");\par
+\par
+    return 0;\par
+\}\par
+\fs32\par
+\b 7. Finding Good Days\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int countGoodDays(int prices[], int n) \{\par
+    int count = 0;\par
+    for (int i = 0; i < n - 1; i++) \{\par
+        if ((prices[i] & prices[i + 1]) > 0) \{\par
+            count++;\par
+        \}\par
+    \}\par
+    return count;\par
+\}\par
+\par
+int main() \{\par
+    int input1[] = \{2, 5, 7, 8, 10\};\par
+    int n1 = sizeof(input1) / sizeof(input1[0]);\par
+    printf("Output 1: %d\\n", countGoodDays(input1, n1));\par
+\par
+    int input2[] = \{1, 2, 3, 4, 5\};\par
+    int n2 = sizeof(input2) / sizeof(input2[0]);\par
+    printf("Output 2: %d\\n", countGoodDays(input2, n2));\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 8. Single Number III\par
+\b0\fs28 #include <stdio.h>\par
+\par
+void findSingleIntegers(int nums[], int n) \{\par
+    int xorResult = 0;\par
+\par
+    // Calculate XOR of all elements in the array\par
+    for (int i = 0; i < n; i++) \{\par
+        xorResult ^= nums[i];\par
+    \}\par
+    // Find the rightmost set bit position\par
+    int rightmostSetBit = 1;\par
+    while ((xorResult & rightmostSetBit) == 0) \{\par
+        rightmostSetBit <<= 1;\par
+    \}\par
+    int num1 = 0, num2 = 0;\par
+    // Divide the array elements into two groups based on the rightmost set bit\par
+    for (int i = 0; i < n; i++) \{\par
+        if (nums[i] & rightmostSetBit) \{\par
+            num1 ^= nums[i];\par
+        \} else \{\par
+            num2 ^= nums[i];\par
+        \}\par
+    \}\par
+    printf("Output: [%d, %d]\\n", num1, num2);\par
+\}\par
+\par
+int main() \{\par
+    int input1[] = \{1, 2, 1, 3, 2, 5\};\par
+    int n1 = sizeof(input1) / sizeof(input1[0]);\par
+    findSingleIntegers(input1, n1);  // Output: [3, 5]\par
+    int input2[] = \{2, 3\};\par
+    int n2 = sizeof(input2) / sizeof(input2[0]);\par
+    findSingleIntegers(input2, n2);  // Output: [2, 3]\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 9. Bit Compression\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int compressArray(int arr[], int n) \{\par
+    int compressed = 0;\par
+    for (int i = 0; i < n; i++) \{\par
+        int num = arr[i];\par
+        while (num > 0) \{\par
+            compressed = (compressed << 1) | (num & 1);\par
+            num >>= 1;\par
+        \}\par
+    \}\par
+    int compressedLength = 0;\par
+    while (compressed > 0) \{\par
+        if ((compressed & 1) == 0) \{\par
+            compressedLength++;\par
+            while ((compressed & 1) == 0) \{\par
+                compressed >>= 1;\par
+            \}\par
+        \} else \{\par
+            compressed >>= 1;\par
+            compressedLength++;\par
+        \}\par
+    \}\par
+    return compressedLength;\par
+\}\par
+\par
+int main() \{\par
+    int input1[] = \{1, 2, 3\};\par
+    int n1 = sizeof(input1) / sizeof(input1[0]);\par
+    printf("Output 1: %d\\n", compressArray(input1, n1));\par
+\par
+    int input2[] = \{0, 0, 0, 0\};\par
+    int n2 = sizeof(input2) / sizeof(input2[0]);\par
+    printf("Output 2: %d\\n", compressArray(input2, n2));\par
+\par
+    int input3[] = \{7, 8, 9\};\par
+    int n3 = sizeof(input3) / sizeof(input3[0]);\par
+    printf("Output 3: %d\\n", compressArray(input3, n3));\par
+\par
+    return 0;\par
+\}\par
+\fs32\par
+\b 10. Subarrays with Bitwise OR 1\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int countSubarraysWithBitwiseOR1(int arr[], int n) \{\par
+    int count = 0;\par
+\par
+    for (int i = 0; i < n; i++) \{\par
+        int currentOR = 0;\par
+\par
+        for (int j = i; j < n; j++) \{\par
+            currentOR |= arr[j];\par
+            \par
+            if (currentOR == 1) \{\par
+                count++;\par
+            \}\par
+        \}\par
+    \}\par
+\par
+    return count;\par
+\}\par
+\par
+int main() \{\par
+    int input1[] = \{4, 5, 6, 7\};\par
+    int n1 = sizeof(input1) / sizeof(input1[0]);\par
+    printf("Output 1: %d\\n", countSubarraysWithBitwiseOR1(input1, n1));  // Output: 6\par
+\par
+    int input2[] = \{8, 9, 10, 11\};\par
+    int n2 = sizeof(input2) / sizeof(input2[0]);\par
+    printf("Output 2: %d\\n", countSubarraysWithBitwiseOR1(input2, n2));  // Output: 1\par
+\par
+    int input3[] = \{2, 4, 6, 8\};\par
+    int n3 = sizeof(input3) / sizeof(input3[0]);\par
+    printf("Output 3: %d\\n", countSubarraysWithBitwiseOR1(input3, n3));  // Output: 0\par
+    return 0;\par
+\}\par
+\fs32\par
+\b 11. Unset x bits from right\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int unsetLastXBits(int n, int x) \{\par
+    int mask = (1 << x) - 1;\par
+    return n & ~mask;\par
+\}\par
+\par
+int main() \{\par
+    int n1 = 20, x1 = 3;\par
+    printf("Output 1: %d\\n", unsetLastXBits(n1, x1));\par
+\par
+    int n2 = 15, x2 = 2;\par
+    printf("Output 2: %d\\n", unsetLastXBits(n2, x2));\par
+\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 12. Count Total Set Bits\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int countSetBits(int n) \{\par
+    int count = 0;\par
+    for (int i = 1; i <= n; i++) \{\par
+        int num = i;\par
+        while (num > 0) \{\par
+            count += num & 1;\par
+            num >>= 1;\par
+        \}\par
+    \}\par
+    return count;\par
+\}\par
+\par
+int main() \{\par
+    int n1 = 5;\par
+    printf("Output 1: %d\\n", countSetBits(n1));\par
+    int n2 = 10;\par
+    printf("Output 2: %d\\n", countSetBits(n2));\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 13. Strange Equality\par
+\b0\fs28 #include <stdio.h>\par
+\par
+int findMaxX(int N) \{\par
+    if (N == 0) \{\par
+        return 1;\par
+    \}\par
+\par
+    int maxX = 0;\par
+    for (int x = 1; x <= N; x++) \{\par
+        if ((N % x) == (N ^ x)) \{\par
+            maxX = x;\par
+        \}\par
+    \}\par
+\par
+    return maxX;\par
+\}\par
+\par
+int main() \{\par
+    int input1 = 10;\par
+    printf("Output 1: %d\\n", findMaxX(input1));  // Output: 5\par
+    int input2 = 15;\par
+    printf("Output 2: %d\\n", findMaxX(input2));  // Output: 7\par
+    return 0;\par
+\}\par
+\par
+\b\fs32 14. Divide Integers\par
+\b0\fs28 #include <stdio.h>\par
+#include <limits.h>\par
+\par
+int divide(int dividend, int divisor) \{\par
+    if (divisor == 0) \{\par
+        return INT_MAX;\par
+    \}\par
+    if (dividend == INT_MIN && divisor == -1) \{\par
+        return INT_MAX;\par
+    \}\par
+    int sign = ((dividend < 0) ^ (divisor < 0)) ? -1 : 1;\par
+    long long dvd = labs(dividend);\par
+    long long dvs = labs(divisor);\par
+    int quotient = 0;\par
+    while (dvd >= dvs) \{\par
+        long long temp = dvs;\par
+        long long count = 1;\par
+        while ((temp << 1) <= dvd) \{\par
+            temp <<= 1;\par
+            count <<= 1;\par
+        \}\par
+        dvd -= temp;\par
+        quotient += count;\par
+    \}\par
+    return sign * quotient;\par
+\}\par
+\par
+int main() \{\par
+    int dividend1 = 10, divisor1 = 3;\par
+    printf("Output 1: %d\\n", divide(dividend1, divisor1));\par
+    int dividend2 = 7, divisor2 = -3;\par
+    printf("Output 2: %d\\n", divide(dividend2, divisor2));\par
+    return 0;\par
+\}\par
+\fs32\par
+\b 15. Smallest XOR\par
+\b0\fs28 #include <stdio.h>\par
+#include <limits.h>\par
+\par
+int min_xor(int arr[], int n) \{\par
+    int min_xor = INT_MAX;\par
+    for (int i = 0; i < n - 1; i++) \{\par
+        int xor = arr[i] ^ arr[i + 1];\par
+        if (xor < min_xor) \{\par
+            min_xor = xor;\par
+        \}\par
+    \}\par
+    return min_xor;\par
+\}\par
+\par
+int main() \{\par
+    int input1[] = \{1, 3, 4, 7, 9\};\par
+    int n1 = sizeof(input1) / sizeof(input1[0]);\par
+    printf("Output 1: %d\\n", min_xor(input1, n1));\par
+    int input2[] = \{0, 2, 5, 7, 8\};\par
+    int n2 = sizeof(input2) / sizeof(input2[0]);\par
+    printf("Output 2: %d\\n", min_xor(input2, n2));\par
+    return 0;\par
+\}\fs32\par
+\b 16. Reverse Bits\par
+\b0\fs28 #include <stdio.h>\par
+\par
+unsigned int reverseBinary(int n) \{\par
+    unsigned int reversed = 0;\par
+    \par
+    while (n > 0) \{\par
+        reversed <<= 1;  // Left-shift reversed by 1\par
+        reversed |= (n & 1);  // Add the least significant bit of n to reversed\par
+        n >>= 1;  // Right-shift n by 1\par
+    \}\par
+    return reversed;\par
+\}\par
+int main() \{\par
+    int input1 = 5;\par
+    printf("Output 1: %u\\n", reverseBinary(input1));  // Output: 160\par
+    int input2 = 7;\par
+    printf("Output 2: %u\\n", reverseBinary(input2));  // Output: 224\par
+    return 0;\par
+\}\par
+}
+ 
